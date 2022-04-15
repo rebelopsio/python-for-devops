@@ -3,6 +3,7 @@
 # In the config file we will have a list of directories to start. Those directories will 
 # be the directories that we list the contents of. 
 import os
+from pprint import pprint
 import yaml
 
 
@@ -33,8 +34,16 @@ def find_config_file(config_file="config.yml"):
 
     print("Config file not found.")
 
+def get_dirs_from_config(config_file):
+    dirs_list = []
+    with open(config_file, 'r') as cf:
+        cf_loaded = yaml.safe_load(cf)
+    for d in cf_loaded['directories']:
+        dirs_list.append(d)
+    return dirs_list
+
 def main():
-    print(find_config_file())
+    get_dirs_from_config(find_config_file())
 
 if __name__ == "__main__":
     print("Let's get started.")
